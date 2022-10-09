@@ -37,14 +37,14 @@ public class Category {
 
     public List<Furniture> getFurnitures() {
         return furnitures;
-    };
+    }
 
     public void setFurnitures(List<Furniture> p) {
         this.furnitures = p;
     }
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "uid")
     private User user;
 
     public User getUser() {

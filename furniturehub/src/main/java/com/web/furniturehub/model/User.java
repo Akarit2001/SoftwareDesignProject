@@ -17,12 +17,13 @@ import javax.persistence.Table;
 public class User {
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", email=" + email + "]";
+        return "User [id=" + uid + ", name=" + name + ", email=" + email + "]";
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "uid")
+    private Integer uid;
     @Column(length = 45, nullable = false, unique = true)
     private String name;
     @Column(length = 45, nullable = false, unique = true)
@@ -50,11 +51,11 @@ public class User {
     }
 
     public Integer getId() {
-        return id;
+        return uid;
     }
 
     public void setId(Integer id2) {
-        this.id = id2;
+        this.uid = id2;
     }
 
     public String getName() {

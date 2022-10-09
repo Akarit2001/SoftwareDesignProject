@@ -25,8 +25,39 @@ public class Furniture {
 
     private String name;
 
-    private Integer quantity;
-    private double price;
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "sid")
+    private Style style;
+
+    public Style getStyle() {
+        return style;
+    }
+
+    public void setStyle(Style style) {
+        this.style = style;
+    }
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "tid")
+    private Ftype ftype;
+
+    public Ftype getFtype() {
+        return ftype;
+    }
+
+    public void setFtype(Ftype ftype) {
+        this.ftype = ftype;
+    }
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "category_id")
@@ -41,32 +72,25 @@ public class Furniture {
     }
 
     public Furniture() {
-		
-		super();
-		setQuantity(0);
-		setPrice(0);
-	}
+        super();
+    }
 
     public Furniture(String name) {
-		super();
-		setName(name);
-		
-     }
+        super();
+        setName(name);
 
-    public Furniture(String name,Integer q) {
-		super();
-		setName(name);
-		setQuantity(q);
-     }
+    }
 
-    public Furniture(String name,Integer q,Double thePrice) {
-		super();
-		setName(name);
-		setQuantity(q);
-		setPrice(thePrice);
-     }
+    public Furniture(String name, Integer q) {
+        super();
+        setName(name);
 
+    }
 
+    public Furniture(String name, Integer q, Double thePrice) {
+        super();
+        setName(name);
+    }
 
     public String getName() {
         return name;
@@ -76,25 +100,9 @@ public class Furniture {
         this.name = name;
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     @Override
     public String toString() {
-        return "Product [id=" + fur_id + ", name=" + name + ", Quantity=" + quantity + ", Category=" + category.getName()
+        return "Product [id=" + fur_id + ", name=" + name + ", Category=" + category.getName()
                 + "]";
     }
 }
