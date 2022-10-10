@@ -19,7 +19,6 @@ public class Style {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sid")
     private Integer sid;
-
     public Integer getSid() {
         return sid;
     }
@@ -30,6 +29,16 @@ public class Style {
 
     @Column(length = 45, nullable = false, unique = true)
     private String style_name;
+    @Column(length = 100, nullable = true, unique = false)
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getStyle_name() {
         return style_name;

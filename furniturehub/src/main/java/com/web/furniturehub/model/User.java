@@ -15,6 +15,9 @@ import javax.persistence.Table;
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "user")
 public class User {
+    public User() {
+    }
+
     @Override
     public String toString() {
         return "User [id=" + uid + ", name=" + name + ", email=" + email + "]";
@@ -31,8 +34,24 @@ public class User {
     private String email;
     private String utype;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @OneToMany(targetEntity = Category.class, mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Category> categorys;
+
+    public User(Integer uid, String name, String password, String email, String utype) {
+        this.uid = uid;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.utype = utype;
+    }
 
     public List<Category> getCategorys() {
         return categorys;
