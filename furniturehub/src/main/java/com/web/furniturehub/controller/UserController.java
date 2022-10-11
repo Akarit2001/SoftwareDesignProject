@@ -22,7 +22,8 @@ public class UserController {
 
   @RequestMapping("/")
   public String root(Model model) {
-
+    User user = new User();
+    model.addAttribute("user", user);
     return "index";
   }
 
@@ -30,6 +31,7 @@ public class UserController {
   public String showRegistrationForm(Model model) {
     // create model object to store form data
     User user = new User();
+    user.setUtype("user");
     model.addAttribute("user", user);
     return "register";
   }
@@ -49,7 +51,7 @@ public class UserController {
       model.addAttribute("user", userDto);
       return "/register";
     }
-
+    userDto.setUtype("user");
     userService.save(userDto);
     return "redirect:/register?success";
   }

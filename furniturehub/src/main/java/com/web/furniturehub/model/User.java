@@ -27,6 +27,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "uid")
     private Integer uid;
+    public Integer getUid() {
+        return uid;
+    }
+
     @Column(length = 45, nullable = false, unique = true)
     private String name;
     @Column(length = 45, nullable = false, unique = true)

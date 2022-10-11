@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <html xmln:th="http://www.thymeleaf.org">
-<head>
-<meta charset="ISO-8859-1">
-<title>Inventory Homepage</title>
- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-</head>
-<body>
-    <div align="center" class="container">
-        <h1>Welcome to Inventory</h1>
-     </div>
-    <div class="container">
-	     
-     
-       <p><a href="/list_category">Category List</a></p>
 
-    	<p><a href="/list_product">Product List</a></p>
-    	
-</div>
-<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+<head>
+   <meta charset="ISO-8859-1">
+   <title>Inventory Homepage</title>
+   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+   <div align="center" class="container">
+      <h1>Welcome to Inventory</h1>
+   </div>
+   <div class="container bg-primary">
+      <div class="row  d-flex justify-content-center">
+         <div class="card">
+            <div class="card-header">
+               <h2 class="text-center">Login</h2>
+            </div>
+
+            <div class="card-body">
+               <form method="post" role="form" th:action="@{/index/login}" th:object="${user}">
+
+                  <div class="form-group mb-3">
+                     <label class="form-label">Email</label>
+                     <input class="form-control" id="email" name="email" placeholder="Enter email address"
+                        th:field="*{email}" type="email" required />
+                     <p th:errors="*{email}" class="text-danger" th:if="${#fields.hasErrors('email')}"></p>
+                  </div>
+
+                  <div class="form-group mb-3">
+                     <label class="form-label">Password</label>
+                     <input class="form-control" id="password" name="password" placeholder="Enter password"
+                        th:field="*{password}" type="password" required />
+                     <p th:errors="*{password}" class="text-danger" th:if="${#fields.hasErrors('password')}"></p>
+                  </div>
+                  <div class="form-group">
+                     <button class="btn btn-primary" type="submit">Login</button>
+                     <span><a th:href="@{/register}">Register nowssssss</a></span>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+   </div>
+   <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+   <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+   <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
 </body>
+
 </html>
