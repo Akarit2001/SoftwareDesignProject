@@ -1,5 +1,7 @@
 package com.web.furniturehub.model;
 
+import java.beans.Transient;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +27,7 @@ public class Furniture {
 
     private String name;
 
+    @Column(nullable = true, length = 64)
     private String image;
 
     public String getImage() {
@@ -104,5 +107,11 @@ public class Furniture {
     public String toString() {
         return "Product [id=" + fur_id + ", name=" + name + ", Category=" + category.getName()
                 + "]";
+    }
+    @Transient
+    public String getPhotosImagePath() {
+        if (image == null || fur_id == null) return null;
+         
+        return "/user-photos/" + fur_id + "/" + image;
     }
 }
