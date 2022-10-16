@@ -1,14 +1,17 @@
 package com.web.furniturehub.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import com.web.furniturehub.model.Category;
+import com.web.furniturehub.model.CategoryFurniture;
 import com.web.furniturehub.model.Ftype;
 import com.web.furniturehub.model.Furniture;
 import com.web.furniturehub.model.Style;
@@ -20,8 +23,10 @@ import com.web.furniturehub.repository.StyleRepository;
 import com.web.furniturehub.repository.UserRepository;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 // import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -59,7 +64,7 @@ public class UserController {
         List<Ftype> tList = ftypeRepository.findAll();
         List<Style> sList = styleRepository.findAll();
 
-        User user = findUser(request);
+        User user = findUser(request); 
         List<Category> category = user.getCategorys();
         model.addAttribute("fList", fList);
         model.addAttribute("tList", tList);
@@ -74,17 +79,38 @@ public class UserController {
         Category category = new Category();
         User user = findUser(request);
         category.setName(cateName);
-        category.setUser(user);
-
+        category.setUser(user); 
         categoryRepository.save(category);
         String referer = request.getHeader("Referer");
-        return "redirect:"+ referer;
+        return "redirect:" + referer;
     }
 
     private User findUser(HttpServletRequest request) {
         Principal principal = request.getUserPrincipal();
         User user = userRepository.findByEmail(principal.getName());
         return user;
+    }
+
+    @GetMapping("/user/mycategory/{category_id}")
+    public String getFurnitureByCategory(@PathVariable("category_id") int cid, Model model,
+            HttpServletRequest request) {
+        // cid = 1
+        // @RequestParam(value = "cid", required = true) Integer cid,
+        Category cf = categoryRepository.findById(cid)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid User Id:" + cid));
+        List<CategoryFurniture> cfList = new ArrayList<CategoryFurniture>();
+        if (cf == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Required properties are missing");
+        }
+
+        cfList = cf.getCf();
+
+
+        User user = findUser(request);
+        List<Category> category = user.getCategorys();
+        model.addAttribute("category", category);
+        model.addAttribute("cfList", cfList);
+        return "mycategory";
     }
 
 }

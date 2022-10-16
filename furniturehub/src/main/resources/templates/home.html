@@ -29,6 +29,7 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
           </li>
+
         </ul>
       </div>
     </div>
@@ -67,21 +68,38 @@
             </ul>
           </div> -->
           <!-- <h1 th:text="${#request.userPrincipal.principal.username"></h1> -->
-          <form th:action="@{/user/getby}" method="get" enctype="multipart/form-data">
-            <select th:name="sid" class="form-control">
-              <option th:value="0" th:text="ทั้งหมด"></option>
-              <th:block th:each="style:${sList}">
-                <option th:text="${style.style_name}" th:value="${style.sid}">Select Type</option>
+          <div>
+            <form th:action="@{/user/getby}" method="get" enctype="multipart/form-data">
+              <select th:name="sid" class="form-control">
+                <option th:value="0" th:text="ทั้งหมด"></option>
+                <th:block th:each="style:${sList}">
+                  <option th:text="${style.style_name}" th:value="${style.sid}">Select Type</option>
+                </th:block>
+              </select>
+              <select th:name="tid" class="form-control">
+                <option th:value="0" th:text="ทั้งหมด">ทั้งหมด</option>
+                <th:block th:each="type:${tList}">
+                  <option th:text="${type.type_name}" th:value="${type.tid}">Select Type</option>
+                </th:block>
+              </select>
+              <button type="submit">ค้นหา</button>
+            </form>
+          </div>
+          <div class="dropdown me-1">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+              aria-expanded="false" data-bs-offset="10,20">
+              Select Categorys
+            </button>
+            <ul class="dropdown-menu">
+              <th:block th:each="category:${category}">
+                <!-- th:if="${furniture. != 'F'}" -->
+                <li>
+                  <a class="dropdown-item" th:text="${category.name}" th:value="${category.category_id}"
+                    th:href="@{/user/mycategory/{category_id}(category_id=${category.category_id})}"></a>
+                </li>
               </th:block>
-            </select>
-            <select th:name="tid" class="form-control">
-              <option th:value="0" th:text="ทั้งหมด">ทั้งหมด</option>
-              <th:block th:each="type:${tList}">
-                <option th:text="${type.type_name}" th:value="${type.tid}">Select Type</option>
-              </th:block>
-            </select>
-            <button type="submit">ค้นหา</button>
-          </form>
+            </ul>
+          </div>
         </div>
         <div class="row row-cols-1 row-cols-md-3 g-4">
           <th:block th:each="furniture:${fList}">
@@ -104,12 +122,14 @@
                       <ul class="dropdown-menu">
                         <th:block th:each="category:${category}">
                           <!-- th:if="${furniture. != 'F'}" -->
-                          <li><a class="dropdown-item" th:text="${category.name}" th:value="${category.category_id}" href="#"></a>
+                          <li><a class="dropdown-item" th:text="${category.name}" th:value="${category.category_id}"
+                              href="#"></a>
                           </li>
                         </th:block>
                         <li class="dropdown-item">
-                          <form  th:action="@{/user/add/category/}" method="post" enctype="multipart/form-data">
-                            <input th:name="cateName" type="text" maxlength="35" placeholder="Category Name" autocomplete="off">
+                          <form th:action="@{/user/add/category/}" method="post" enctype="multipart/form-data">
+                            <input th:name="cateName" type="text" maxlength="35" placeholder="Category Name"
+                              autocomplete="off">
                             <input type="submit" value="Add New">
                           </form>
                         </li>

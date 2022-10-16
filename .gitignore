@@ -33,3 +33,5 @@ build/
 .vscode/
 
 furniturehub/src/main/resources/application.properties
+*.jpg
+*.png

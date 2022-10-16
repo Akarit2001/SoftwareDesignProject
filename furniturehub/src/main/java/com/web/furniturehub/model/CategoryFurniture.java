@@ -6,7 +6,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-class CategoryFurniture {
+public class CategoryFurniture {
 
     @Id
     Long cfid;
