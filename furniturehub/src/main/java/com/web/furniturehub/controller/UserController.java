@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -16,6 +15,7 @@ import com.web.furniturehub.model.Ftype;
 import com.web.furniturehub.model.Furniture;
 import com.web.furniturehub.model.Style;
 import com.web.furniturehub.model.User;
+import com.web.furniturehub.repository.CateFurRepository;
 import com.web.furniturehub.repository.CategoryRepository;
 import com.web.furniturehub.repository.FtypeRepository;
 import com.web.furniturehub.repository.FurnitureRepository;
@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 // import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.server.ResponseStatusException;
+
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -37,14 +37,17 @@ public class UserController {
     private StyleRepository styleRepository;
     private UserRepository userRepository;
     private CategoryRepository categoryRepository;
+    private CateFurRepository cateFurRepository;
 
     public UserController(FurnitureRepository furnitureRepository, FtypeRepository ftypeRepository,
-            StyleRepository styleRepository, UserRepository userRepository, CategoryRepository categoryRepository) {
+            StyleRepository styleRepository, UserRepository userRepository, CategoryRepository categoryRepository,
+            CateFurRepository cateFurRepository) {
         this.furnitureRepository = furnitureRepository;
         this.ftypeRepository = ftypeRepository;
         this.styleRepository = styleRepository;
         this.userRepository = userRepository;
         this.categoryRepository = categoryRepository;
+        this.cateFurRepository = cateFurRepository;
     }
 
     @GetMapping(value = "/user/getby")
@@ -64,7 +67,7 @@ public class UserController {
         List<Ftype> tList = ftypeRepository.findAll();
         List<Style> sList = styleRepository.findAll();
 
-        User user = findUser(request); 
+        User user = findUser(request);
         List<Category> category = user.getCategorys();
         model.addAttribute("fList", fList);
         model.addAttribute("tList", tList);
@@ -79,7 +82,7 @@ public class UserController {
         Category category = new Category();
         User user = findUser(request);
         category.setName(cateName);
-        category.setUser(user); 
+        category.setUser(user);
         categoryRepository.save(category);
         String referer = request.getHeader("Referer");
         return "redirect:" + referer;
@@ -98,19 +101,36 @@ public class UserController {
         // @RequestParam(value = "cid", required = true) Integer cid,
         Category cf = categoryRepository.findById(cid)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid User Id:" + cid));
-        List<CategoryFurniture> cfList = new ArrayList<CategoryFurniture>();
-        if (cf == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Required properties are missing");
-        }
-
-        cfList = cf.getCf();
-
-
         User user = findUser(request);
         List<Category> category = user.getCategorys();
+        List<CategoryFurniture> cfList = new ArrayList<CategoryFurniture>();
+
+         cfList = cf.getCf();
+
+         if (cf.getCf().isEmpty()) {
+            model.addAttribute("category", category);
+            return "mycategoryitemempty";
+        }
+
         model.addAttribute("category", category);
         model.addAttribute("cfList", cfList);
         return "mycategory";
+    }
+
+    @GetMapping(value = "/user/add/{fur_id}/to/{category_id}")
+    public String postMethodName(@PathVariable("fur_id") int fid, @PathVariable("category_id") int cid,
+            Model model, HttpServletRequest request) {
+        CategoryFurniture categoryFurniture = new CategoryFurniture();
+        Category c = categoryRepository.findById(cid)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid User Id:" + cid));
+        Furniture f = furnitureRepository.findById(fid)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid User Id:" + fid));
+
+        categoryFurniture.setFurniture(f);
+        categoryFurniture.setCategory(c);
+        cateFurRepository.save(categoryFurniture);
+        String referer = request.getHeader("Referer");
+        return "redirect:" + referer;
     }
 
 }
