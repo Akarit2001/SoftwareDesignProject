@@ -32,15 +32,14 @@ public class Category {
         this.category_id = category_id;
     }
 
-    @OneToMany(targetEntity = Furniture.class, mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Furniture> furnitures;
+    @OneToMany(targetEntity = CategoryFurniture.class, mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CategoryFurniture> cf;
 
-    public List<Furniture> getFurnitures() {
-        return furnitures;
+    public List<CategoryFurniture> getCf() {
+        return cf;
     }
-
-    public void setFurnitures(List<Furniture> p) {
-        this.furnitures = p;
+    public void setCf(List<CategoryFurniture> cf) {
+        this.cf = cf;
     }
 
     @ManyToOne(optional = false)

@@ -1,14 +1,18 @@
 package com.web.furniturehub.model;
 
 import java.beans.Transient;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Furniture {
@@ -62,17 +66,7 @@ public class Furniture {
         this.ftype = ftype;
     }
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category c) {
-        this.category = c;
-    }
+ 
 
     public Furniture() {
         super();
@@ -105,8 +99,7 @@ public class Furniture {
 
     @Override
     public String toString() {
-        return "Product [id=" + fur_id + ", name=" + name + ", Category=" + category.getName()
-                + "]";
+        return "Product [id=" + fur_id + ", name=" + name + "]";
     }
     @Transient
     public String getPhotosImagePath() {
@@ -114,4 +107,16 @@ public class Furniture {
          
         return "/user-photos/" + fur_id + "/" + image;
     }
+    @OneToMany(targetEntity = CategoryFurniture.class, mappedBy = "furniture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<CategoryFurniture> cf;
+
+    public List<CategoryFurniture> getCf() {
+        return cf;
+    }
+    public void setCf(List<CategoryFurniture> cf) {
+        this.cf = cf;
+    }
+
+
+    
 }

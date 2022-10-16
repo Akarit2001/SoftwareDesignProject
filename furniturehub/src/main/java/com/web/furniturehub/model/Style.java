@@ -51,6 +51,16 @@ public class Style {
     @OneToMany(targetEntity = Furniture.class, mappedBy = "style", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Furniture> furnitures;
 
+    public Style(Integer sid, String style_name, String description, List<Furniture> furnitures) {
+        this.sid = sid;
+        this.style_name = style_name;
+        this.description = description;
+        this.furnitures = furnitures;
+    }
+
+    public Style() {
+    }
+
     public List<Furniture> getFurnitures() {
         return furnitures;
     }
