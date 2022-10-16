@@ -35,36 +35,67 @@
     </div>
   </nav>
   <div align="center" class="container">
-    <h1>Welcome to Furniture Inventory</h1>
+    <br>
+    <h1>Furniture</h1>
+    <br>
   </div>
   <div class="container">
     <div class="row  d-flex justify-content-center">
-      <div class="card">
-        <div class="card-header">
-        </div>
+      <div class="card" style="border: none !important;">
+
         <div class="d-flex flex-row-reverse">
+          <!-- <div class="dropdown me-1">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+              aria-expanded="false" data-bs-offset="10,20">
+              Style
+            </button>
+            <ul class="dropdown-menu">
+              <th:block th:each="style:${sList}">
+                <li><a class="dropdown-item" href="#" th:text="${style.style_name}">Style1</a></li>
+              </th:block>
+            </ul>
+          </div>
+          <div class="dropdown me-2">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+              aria-expanded="false" data-bs-offset="10,20">
+              Type
+            </button>
+            <ul class="dropdown-menu">
+              <th:block th:each="type:${tList}">
+                <li><a class="dropdown-item" href="#" th:text="${type.type_name}">Style1</a></li>
+              </th:block>
+            </ul>
+          </div> -->
+          <!-- <h1 th:text="${#request.userPrincipal.principal.username"></h1> -->
           <div>
             <form th:action="@{/user/getby}" method="get" enctype="multipart/form-data">
               <select th:name="sid" class="form-control">
-                <option th:value="0" th:text="ทั้งหมด"></option>
+                <option th:value="0" th:text="All-Style"></option>
                 <th:block th:each="style:${sList}">
                   <option th:text="${style.style_name}" th:value="${style.sid}">Select Type</option>
                 </th:block>
               </select>
+
               <select th:name="tid" class="form-control">
-                <option th:value="0" th:text="ทั้งหมด">ทั้งหมด</option>
+                <option th:value="0" th:text="All-Type">ทั้งหมด</option>
                 <th:block th:each="type:${tList}">
                   <option th:text="${type.type_name}" th:value="${type.tid}">Select Type</option>
                 </th:block>
               </select>
-              <button type="submit">ค้นหา</button>
+              <button type="submit"
+                class="btn btn-secondary">&nbsp;&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;&nbsp;</button>
             </form>
           </div>
+          <b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          </b>
           <div class="dropdown me-1">
             <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
               aria-expanded="false" data-bs-offset="10,20">
               Select Categorys
             </button>
+
             <ul class="dropdown-menu">
               <th:block th:each="category:${category}">
                 <!-- th:if="${furniture. != 'F'}" -->
@@ -75,13 +106,17 @@
               </th:block>
             </ul>
           </div>
+
         </div>
+
+        <br>
         <div class="row row-cols-1 row-cols-md-3 g-4">
           <th:block th:each="furniture:${fList}">
             <!-- <p th:text="'~/img/'+${furniture.image}"></p> -->
             <div class="col">
               <div class="card">
-                <img th:src="@{'~/img/'+${furniture.image}}" class="card-img-top" alt="file not found">
+                <img th:src="@{'~/img/'+${furniture.image}}" class="card-img-top" alt="file not found" width="250"
+                  height="300">
                 <div class="card-body">
                   <h5 class="card-title " th:text="${furniture.name}">Card title</h5>
                   <ul class="list-group list-group-flush">
@@ -96,7 +131,7 @@
                       </button>
                       <ul class="dropdown-menu">
                         <th:block th:each="category:${category}">
-
+                          <!-- th:if="${furniture. != 'F'}" -->
                           <li><a class="dropdown-item" th:text="${category.name}" th:value="${category.category_id}"
                               th:href="@{/user/add/{fur_id}/to/{category_id}( fur_id = ${furniture.fur_id},category_id=${category.category_id})}"></a>
                           </li>
@@ -121,9 +156,13 @@
         </div>
       </div>
       </form>
+
     </div>
+
   </div>
-  <a href="/" class="btn btn-dark" role="button" aria-pressed="true">Back to Homepage</a>
+  <div align="center">
+    <a href="/" class="btn btn-dark" role="button" aria-pressed="true">Back to Homepage</a>
+  </div>
   </div>
 
 

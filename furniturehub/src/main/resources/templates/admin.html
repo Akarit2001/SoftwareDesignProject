@@ -10,19 +10,25 @@
 
 <body>
     <div align="center" class="container">
+        <br>
         <h1>Admin management page</h1>
+        <br>
     </div>
-    <div class="container bg-primary">
+    <div class="container bg-default">
         <h1>Add Furniture</h1>
+        <br>
         <form th:action="@{/admin/add/furniture}" th:object="${furniture}" method="post" enctype="multipart/form-data">
             <div>
-                <label>Name: </label>
+                <label>Name : </label>
                 <input type="text" th:field="*{name}" /><br>
-                <label>Photos: </label>
+                <br>
+                <label>Photos : </label>
                 <input type="file" th:name="images" accept="image/png, image/jpeg" />
+                <br>
 
+                <br>
                 <div class="form-group row">
-                    <label class="col-form-label col-sm*">Type:</label>
+                    <label class="col-form-label col-sm*">&nbsp;&nbsp;&nbsp;Type :</label>
                     <div class="col-sm-8">
                         <select th:field="*{ftype}" class="form-control">
                             <th:block th:each="ftype:${tList}">
@@ -32,7 +38,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-form-label col-sm*">Style:</label>
+                    <label class="col-form-label col-sm*">&nbsp;&nbsp;&nbsp;Style :</label>
                     <div class="col-sm-8">
                         <select th:field="*{style}" class="form-control">
                             <th:block th:each="style:${sList}">
@@ -42,7 +48,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit">Save Product</button>
+            <button type="submit" class="btn btn-secondary">Save Product</button>
 
         </form>
 

@@ -105,9 +105,9 @@ public class UserController {
         List<Category> category = user.getCategorys();
         List<CategoryFurniture> cfList = new ArrayList<CategoryFurniture>();
 
-         cfList = cf.getCf();
+        cfList = cf.getCf();
 
-         if (cf.getCf().isEmpty()) {
+        if (cf.getCf().isEmpty()) {
             model.addAttribute("category", category);
             return "mycategoryitemempty";
         }
@@ -115,7 +115,7 @@ public class UserController {
         model.addAttribute("category", category);
         model.addAttribute("cfList", cfList);
         return "mycategory";
-    }
+    } 
 
     @GetMapping(value = "/user/add/{fur_id}/to/{category_id}")
     public String postMethodName(@PathVariable("fur_id") int fid, @PathVariable("category_id") int cid,
