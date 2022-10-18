@@ -38,7 +38,7 @@ public class UserController {
     private UserRepository userRepository;
     private CategoryRepository categoryRepository;
     private CateFurRepository cateFurRepository;
-
+  
     public UserController(FurnitureRepository furnitureRepository, FtypeRepository ftypeRepository,
             StyleRepository styleRepository, UserRepository userRepository, CategoryRepository categoryRepository,
             CateFurRepository cateFurRepository) {
