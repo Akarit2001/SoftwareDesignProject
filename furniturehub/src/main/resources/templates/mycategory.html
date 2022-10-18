@@ -71,11 +71,11 @@
                   <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
                     additional
                     content. This content is a little bit longer.</p>
-                  <a href="#" class="btn btn-danger">Delete</a>
+                  <!-- <a href="#" class="btn btn-danger">Delete</a> -->
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Style : </li>
-                  <li class="list-group-item">Type : </li>
+                  <li class="list-group-item" th:text="'Style : '+${cf.furniture.style.style_name}"> </li>
+                  <li class="list-group-item" th:text="'Type : '+${cf.furniture.ftype.type_name}"> </li>
                 </ul>
               </div>
             </div>
@@ -86,7 +86,7 @@
       <br>
     </div>
 
-    <a align="center" href="/" class="btn btn-dark" role="button" aria-pressed="true">Back to Homepage</a>
+    <a align="center" href="/user" class="btn btn-dark" role="button" aria-pressed="true">Back to Homepage</a>
 
   </div>
 

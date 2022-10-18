@@ -77,6 +77,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/user/add/category")
+
     public String addCate(@RequestParam(value = "cateName", required = true) String cateName,
             Model model, HttpServletRequest request) {
         Category category = new Category();
@@ -97,8 +98,7 @@ public class UserController {
     @GetMapping("/user/mycategory/{category_id}")
     public String getFurnitureByCategory(@PathVariable("category_id") int cid, Model model,
             HttpServletRequest request) {
-        // cid = 1
-        // @RequestParam(value = "cid", required = true) Integer cid,
+    
         Category cf = categoryRepository.findById(cid)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid User Id:" + cid));
         User user = findUser(request);
@@ -115,7 +115,7 @@ public class UserController {
         model.addAttribute("category", category);
         model.addAttribute("cfList", cfList);
         return "mycategory";
-    } 
+    }
 
     @GetMapping(value = "/user/add/{fur_id}/to/{category_id}")
     public String postMethodName(@PathVariable("fur_id") int fid, @PathVariable("category_id") int cid,

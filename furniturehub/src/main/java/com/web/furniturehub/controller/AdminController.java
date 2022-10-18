@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class AdminController {
     @Autowired
     private FurnitureRepository repo;
+
     @Autowired
     private FtypeRepository ftypeRepository;
     @Autowired
@@ -32,9 +33,9 @@ public class AdminController {
     @PostMapping("/admin/add/furniture")
     public String saveUser(Furniture furniture,
             @RequestParam("images") MultipartFile multipartFile) throws IOException {
-        // System.out.println("sssssssssssssssssssssssssssssssssssdsfsdfsdfdsf");
+
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        // System.out.println(fileName);
+
         furniture.setImage(fileName);
         repo.save(furniture);
         String uploadDir = "./src/main/resources/static/img";
